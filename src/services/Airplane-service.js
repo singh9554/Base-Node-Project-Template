@@ -24,7 +24,7 @@ async function createAirplane(data) {
     );
   }
 }
-async function getAirplane() {
+async function getAirplanes() {
   try {
     const airplane = await airplaneRepository.getAll();
     return airplane;
@@ -35,7 +35,31 @@ async function getAirplane() {
     );
   }
 }
+async function getAirplane(id){
+ try {
+    const airplane = await airplaneRepository.get(id);
+    return airplane;
+ } catch (error) {
+    if(error.statusCode == statusCode.NOT_FOUND){
+    throw new AppError('could not fetch corresponding flight', statusCode.NOT_FOUND);
+    }
+    throw new AppError('Cannot fetch your flight', statusCode.INTERNAL_SERVER_ERROR);
+ }
+}
+async function destroyAirplane(id){
+    try {
+        const response = await airplaneRepository.destroy(id);
+        return response;
+    } catch (error) {
+        if(error.statusCode == statusCode.NOT_FOUND){
+            throw new AppError('not able to find the resource to delete', statusCode.NOT_FOUND);
+            }
+        throw new AppError('Cannot delete you flight', statusCode.INTERNAL_SERVER_ERROR)
+    }
+}
 module.exports = {
   createAirplane,
+  getAirplanes,
   getAirplane,
+  destroyAirplane
 };
