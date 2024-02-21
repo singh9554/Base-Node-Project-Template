@@ -54,12 +54,24 @@ async function destroyAirplane(id){
         if(error.statusCode == statusCode.NOT_FOUND){
             throw new AppError('not able to find the resource to delete', statusCode.NOT_FOUND);
             }
+
         throw new AppError('Cannot delete you flight', statusCode.INTERNAL_SERVER_ERROR)
     }
+}
+
+async function updateAirplane(id, data){
+  try {
+    const updateAirplane = await airplaneRepository.update(id,data);
+    return updateAirplane;
+  } catch (error) {
+    throw new AppError('not able to update your flight details', statusCode.INTERNAL_SERVER_ERROR)
+  }
 }
 module.exports = {
   createAirplane,
   getAirplanes,
   getAirplane,
-  destroyAirplane
+  destroyAirplane,
+  updateAirplane,
 };
+
