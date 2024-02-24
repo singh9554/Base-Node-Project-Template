@@ -66,10 +66,11 @@ update : /:id
 */
 async function updateAirplane(req, res) {
   try {
-    const updateAirplane = await AirplaneService.updateAirplane(req.params.id, {
+    const updatedAirplane = await AirplaneService.updateAirplane(req.params.id, {
       capacity: req.body.capacity,
     });
-    SuccessResponse.data = updateAirplane;
+    SuccessResponse.data = updatedAirplane;
+    SuccessResponse.message = 'Airplane data updated successfully';
     return res.status(statusCode.CREATED).json(SuccessResponse);
   } catch (error) {
     return res.status(error.statusCode).json(ErrorResponse);

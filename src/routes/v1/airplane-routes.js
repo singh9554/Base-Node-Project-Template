@@ -25,7 +25,7 @@ router.delete('/:id',AirplaneController.destroyAirplane);
 
 //api/v1/airplane/:id -> patch;
 
-router.patch('/:id',AirplaneController.updateAirplane);
+router.patch('/:id',AirplaneMiddlewares.ValidationCapacity,AirplaneController.updateAirplane);
 
 module.exports = router;
  
