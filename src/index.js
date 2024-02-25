@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", apiRouter);
 
-app.listen(serverconfig.PORT, () => {
+app.listen(serverconfig.PORT, async () => {
   console.log(`Server is running successfully at port : ${serverconfig.PORT}`);
   logger.info("Successfully started the server", {});
 });
